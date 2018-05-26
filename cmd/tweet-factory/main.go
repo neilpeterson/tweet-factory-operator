@@ -21,13 +21,15 @@ func printVersion() {
 func main() {
 	printVersion()
 
+	// Watch settings
 	resource := "tweet-factory.com/v1alpha1"
 	kind := "TweetFactory"
 	namespace, err := k8sutil.GetWatchNamespace()
 	if err != nil {
 		logrus.Fatalf("Failed to get watch namespace: %v", err)
 	}
-	resyncPeriod := 5
+	resyncPeriod := 0
+
 	logrus.Infof("Watching %s, %s, %s, %d", resource, kind, namespace, resyncPeriod)
 	sdk.Watch(resource, kind, namespace, resyncPeriod)
 	sdk.Handle(stub.NewHandler())

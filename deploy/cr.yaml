@@ -1,4 +1,10 @@
 apiVersion: "tweet-factory.com/v1alpha1"
 kind: "TweetFactory"
 metadata:
-  name: "example"
+  name: "skydive"
+spec:
+  consumerKey: "yAxwtU05hrl2d8FeQN7NC6GL2"
+  consumerSecret: "qTD7EXjTibcwfQTx9Tj6w11GMpJNvwgD9Prxik3MXoXfGwHhkL"
+  accessToken: "556115100-861zXWlyUeXOcdODyCP7NAaxVRivAE01xYm2MNyO"
+  accessTokenSecret: "8i4ox6AWUAlSiTFNMLUMQOA6tsqaydh7LZyGGEtm8kAj4"
+  filterText: "Skydive"
