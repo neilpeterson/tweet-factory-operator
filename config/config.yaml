@@ -1,0 +1,3 @@
+apiVersion: tweet-factory.com/v1alpha1
+kind: TweetFactory
+projectName: tweet-factory

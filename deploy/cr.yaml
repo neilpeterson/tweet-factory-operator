@@ -1,0 +1,4 @@
+apiVersion: "tweet-factory.com/v1alpha1"
+kind: "TweetFactory"
+metadata:
+  name: "example"
