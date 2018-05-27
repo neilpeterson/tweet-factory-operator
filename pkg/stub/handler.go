@@ -31,17 +31,18 @@ type Handler struct {
 func (h *Handler) Handle(ctx context.Context, event sdk.Event) error {
 	switch o := event.Object.(type) {
 	case *v1alpha1.TweetFactory:
-
-		// TODO - run Helm uninstall
 		if event.Deleted {
-			return nil
+			// Delete Tweet Factory instance
+			fmt.Println("Twitter Factory deleted: " + o.Name)
+			deleteTwitterSentiment(*o)
+		} else {
+			// Build Helm installation string
+			runCommand := buildString(*o)
+
+			// Create Tweet Factory instance
+			fmt.Println("Twitter Factory created: " + o.Name)
+			newTwitterSentiment(runCommand, o.Name)
 		}
-
-		// Build Helm installation string
-		runCommand := buildString(*o)
-
-		// Run twitter-sentiment chart
-		newTwitterSentiment(runCommand, o.Name)
 	}
 	return nil
 }
@@ -125,4 +126,52 @@ func buildString(o v1alpha1.TweetFactory) []string {
 	s = append(s, "--name", "twitter-"+o.Name)
 
 	return s
+}
+
+func deleteTwitterSentiment(o v1alpha1.TweetFactory) {
+	// Initilization information - package rest
+	var (
+		config *rest.Config
+		err    error
+	)
+
+	kubeconfig := os.Getenv("KUBECONFIG")
+
+	// Authentication / connection object - package tools/clientcmd
+	config, err = clientcmd.BuildConfigFromFlags("", kubeconfig)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "error creating client: %v", err)
+		os.Exit(1)
+	}
+
+	// Kubernetes client - package kubernetes
+	clientset := kubernetes.NewForConfigOrDie(config)
+
+	jobsClient := clientset.BatchV1().Jobs("default")
+
+	job := &batchv1.Job{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      o.Name + "-delete",
+			Namespace: "default",
+		},
+		Spec: batchv1.JobSpec{
+			Template: apiv1.PodTemplateSpec{
+				Spec: apiv1.PodSpec{
+					RestartPolicy: "Never",
+					Containers: []apiv1.Container{
+						{
+							Name:    "demo",
+							Image:   "neilpeterson/helm-test",
+							Command: []string{"helm", "delete", "twitter-" + o.Name, "--purge"},
+						},
+					},
+				},
+			},
+		},
+	}
+
+	_, err = jobsClient.Create(job)
+	if err != nil {
+		fmt.Println(err)
+	}
 }
