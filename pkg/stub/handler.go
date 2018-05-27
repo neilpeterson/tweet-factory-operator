@@ -29,8 +29,10 @@ type Handler struct {
 
 // Handle function
 func (h *Handler) Handle(ctx context.Context, event sdk.Event) error {
+
 	switch o := event.Object.(type) {
 	case *v1alpha1.TweetFactory:
+
 		if event.Deleted {
 			// Delete Tweet Factory instance
 			fmt.Println("Twitter Factory deleted: " + o.Name)
@@ -99,34 +101,34 @@ func newTwitterSentiment(s []string, n string) {
 	}
 }
 
-func buildString(o v1alpha1.TweetFactory) []string {
+// func buildString(o v1alpha1.TweetFactory) []string {
 
-	s := []string{"helm", "install", "azure-samples/twitter-sentiment"}
+// 	s := []string{"helm", "install", "azure-samples/twitter-sentiment"}
 
-	if len(o.Spec.ConsumerKey) > 0 {
-		s = append(s, "--set", "consumerKey="+o.Spec.ConsumerKey)
-	}
-	if len(o.Spec.ConsumerSecret) > 0 {
-		s = append(s, "--set", "consumerSecret="+o.Spec.ConsumerSecret)
-	}
-	if len(o.Spec.AccessToken) > 0 {
-		s = append(s, "--set", "accessToken="+o.Spec.AccessToken)
-	}
-	if len(o.Spec.AccessTokenSecret) > 0 {
-		s = append(s, "--set", "accessTokenSecret="+o.Spec.AccessTokenSecret)
-	}
-	if len(o.Spec.FilterText) > 0 {
-		s = append(s, "--set", "filterText="+o.Spec.FilterText)
-	}
+// 	if len(o.Spec.ConsumerKey) > 0 {
+// 		s = append(s, "--set", "consumerKey="+o.Spec.ConsumerKey)
+// 	}
+// 	if len(o.Spec.ConsumerSecret) > 0 {
+// 		s = append(s, "--set", "consumerSecret="+o.Spec.ConsumerSecret)
+// 	}
+// 	if len(o.Spec.AccessToken) > 0 {
+// 		s = append(s, "--set", "accessToken="+o.Spec.AccessToken)
+// 	}
+// 	if len(o.Spec.AccessTokenSecret) > 0 {
+// 		s = append(s, "--set", "accessTokenSecret="+o.Spec.AccessTokenSecret)
+// 	}
+// 	if len(o.Spec.FilterText) > 0 {
+// 		s = append(s, "--set", "filterText="+o.Spec.FilterText)
+// 	}
 
-	// I am setting the next two to use CR name.
-	// Quick fix for running multiple instances of twitter-analytics.
-	s = append(s, "--set", "resourceGroup=twitter-"+o.Name)
-	s = append(s, "--set", "twitterSecretName=twitter-"+o.Name)
-	s = append(s, "--name", "twitter-"+o.Name)
+// 	// I am setting the next two to use CR name.
+// 	// Quick fix for running multiple instances of twitter-analytics.
+// 	s = append(s, "--set", "resourceGroup=twitter-"+o.Name)
+// 	s = append(s, "--set", "twitterSecretName=twitter-"+o.Name)
+// 	s = append(s, "--name", "twitter-"+o.Name)
 
-	return s
-}
+// 	return s
+// }
 
 func deleteTwitterSentiment(o v1alpha1.TweetFactory) {
 	// Initilization information - package rest
@@ -149,26 +151,26 @@ func deleteTwitterSentiment(o v1alpha1.TweetFactory) {
 
 	jobsClient := clientset.BatchV1().Jobs("default")
 
-	job := &batchv1.Job{
-		ObjectMeta: metav1.ObjectMeta{
-			Name:      o.Name + "-delete",
-			Namespace: "default",
-		},
-		Spec: batchv1.JobSpec{
-			Template: apiv1.PodTemplateSpec{
-				Spec: apiv1.PodSpec{
-					RestartPolicy: "Never",
-					Containers: []apiv1.Container{
-						{
-							Name:    "demo",
-							Image:   "neilpeterson/helm-test",
-							Command: []string{"helm", "delete", "twitter-" + o.Name, "--purge"},
-						},
-					},
-				},
-			},
-		},
-	}
+	// job := &batchv1.Job{
+	// 	ObjectMeta: metav1.ObjectMeta{
+	// 		Name:      o.Name + "-delete",
+	// 		Namespace: "default",
+	// 	},
+	// 	Spec: batchv1.JobSpec{
+	// 		Template: apiv1.PodTemplateSpec{
+	// 			Spec: apiv1.PodSpec{
+	// 				RestartPolicy: "Never",
+	// 				Containers: []apiv1.Container{
+	// 					{
+	// 						Name:    "demo",
+	// 						Image:   "neilpeterson/helm-test",
+	// 						Command: []string{"helm", "delete", "twitter-" + o.Name, "--purge"},
+	// 					},
+	// 				},
+	// 			},
+	// 		},
+	// 	},
+	// }
 
 	_, err = jobsClient.Create(job)
 	if err != nil {
