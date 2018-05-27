@@ -122,6 +122,7 @@ func buildString(o v1alpha1.TweetFactory) []string {
 	// Quick fix for running multiple instances of twitter-analytics.
 	s = append(s, "--set", "resourceGroup=twitter-"+o.Name)
 	s = append(s, "--set", "twitterSecretName=twitter-"+o.Name)
+	s = append(s, "--name", "twitter-"+o.Name)
 
 	return s
 }
