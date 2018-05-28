@@ -7,14 +7,17 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func prepJob(o v1alpha1.TweetFactory, n string, a string) *batchv1.Job {
+func prepJob(o v1alpha1.TweetFactory, a string) *batchv1.Job {
 
 	var s []string
+	var n string
 
 	if a == "create" {
 		s = stringCreate(o)
+		n = o.Name
 	} else {
 		s = stringDelete(o)
+		n = o.Name + "-delete"
 	}
 
 	job := &batchv1.Job{

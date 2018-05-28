@@ -1,10 +1,10 @@
 apiVersion: "tweet-factory.com/v1alpha1"
 kind: "TweetFactory"
 metadata:
-  name: "seattle"
+  name: "dallas"
 spec:
-  consumerKey: ""
-  consumerSecret: ""
-  accessToken: ""
-  accessTokenSecret: ""
-  filterText: "Seattle"
+  consumerKey: "zRnNQ5g6p5axx1CEadkiK4OPA"
+  consumerSecret: "MSULFoDABF0gXDrk3GYTUI1bpfxNX3SPdUWQCCGHF7QTcfIwwO"
+  accessToken: "556115100-xtHPBPzVmf552vRtyhYUwwrlPXj5Y0wvO4yfGwY9"
+  accessTokenSecret: "hUBslptZIgGDW2GKGEPjyqGKyBqhc0vfYyo9naJRTlis4"
+  filterText: "Dallas"

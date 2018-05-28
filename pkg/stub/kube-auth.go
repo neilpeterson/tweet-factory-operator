@@ -1,12 +1,16 @@
 package stub
 
 import (
+	"fmt"
 	"os"
-	"k8s.io/client-go/tools/clientcmd"
+
 	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
+	"k8s.io/client-go/tools/clientcmd"
 )
 
-func kubeAuth() clientset *Clientset {
+func kubeAuth() *kubernetes.Clientset {
+
 	var (
 		config *rest.Config
 		err    error
@@ -23,4 +27,5 @@ func kubeAuth() clientset *Clientset {
 
 	// Kubernetes client - package kubernetes
 	clientset := kubernetes.NewForConfigOrDie(config)
+	return clientset
 }
