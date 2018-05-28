@@ -11,7 +11,7 @@ I've built this project to demonstrate concepts for building platforms on Kubern
 
 ## Demonstration
 
-Short five minute demo – this is also available on [youtube.com](https://youtu.be/zh28H_fXEdI), which may be easier to view from the beginning, pause, etc.
+Short five minute demo – this is also available on [youtube.com](https://youtu.be/_WWMCsYPvBQ), which may be easier to view from the beginning, pause, etc.
 
 ![](images/tweet-factory.gif)
 
@@ -42,7 +42,7 @@ helm install azure-samples/tweet-factory-operator -n tweet-factory
 
 At this point, a custom resource definition (CRD) has been created that represents the Tweet Factory solution. When a new instance of the custom resource is created, the Tweet Factor operator creates an instance of the service.
 
-To deploy a new instance, create a file names `tweet-seattle.yaml` and copy in the following YAML. Update the Twitter consumer key, access token, and both secrets with the values from your twitter API application.
+To deploy a new instance, create a file named `tweet-seattle.yaml` and copy in the following YAML. Update the Twitter consumer key, access token, and both secrets with the values from your twitter API application.
 
 ```
 apiVersion: "tweet-factory.com/v1alpha1"
