@@ -1,4 +1,4 @@
-# Tweet Factory - A sample SaaS built on Kubernetes
+# Tweet Factory - A sample platform built on Kubernetes
 
 Tweet Factory is a sample / reference Kubernetes operator that demonstrates running [this Twitter sentiment analysis solution](https://github.com/neilpeterson/twitter-sentiment-for-kubernetes) as a service on top of Kubernetes.
 
