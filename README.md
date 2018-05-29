@@ -2,18 +2,16 @@
 
 Tweet Factory is a sample / reference Kubernetes operator that demonstrates running [this Twitter sentiment analysis solution](https://github.com/neilpeterson/twitter-sentiment-for-kubernetes) as a service on top of Kubernetes.
 
+Short five minute demo – this is also available on [youtube.com](https://youtu.be/os33mkp6pqw), which may be easier to view from the beginning, pause, etc.
+
+![](images/tweet-factory.gif)
+
 I've built this project to demonstrate concepts for building platforms on Kubernetes. The following technology is used in this solution:
 
 - Kubernetes Custom Resources (TweetFactory)
 - Kubernetes Service Catalog
 - Open Service Broker for Azure
 - Operator Framework
-
-## Demonstration
-
-Short five minute demo – this is also available on [youtube.com](https://youtu.be/_WWMCsYPvBQ), which may be easier to view from the beginning, pause, etc.
-
-![](images/tweet-factory.gif)
 
 ## Prerequisites
 
