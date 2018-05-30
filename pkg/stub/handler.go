@@ -7,6 +7,8 @@ import (
 	"github.com/neilpeterson/tweet-factory/pkg/apis/tweet-factory/v1alpha1"
 
 	"github.com/operator-framework/operator-sdk/pkg/sdk"
+
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // NewHandler function
@@ -53,6 +55,18 @@ func newTwitterSentiment(o v1alpha1.TweetFactory) {
 	if err != nil {
 		fmt.Println(err)
 	}
+
+	// Quick hack for job clean-up
+	// Need to improve this - function / go routine
+	for {
+		job, _ := jobsClient.Get(job.Name, metav1.GetOptions{})
+		if job.Status.Succeeded == 1 {
+			{
+				jobsClient.Delete(job.Name, &metav1.DeleteOptions{})
+				break
+			}
+		}
+	}
 }
 
 func deleteTwitterSentiment(o v1alpha1.TweetFactory) {
@@ -68,5 +82,17 @@ func deleteTwitterSentiment(o v1alpha1.TweetFactory) {
 	_, err = jobsClient.Create(job)
 	if err != nil {
 		fmt.Println(err)
+	}
+
+	// Quick hack for job clean-up
+	// Need to improve this - function / go routine
+	for {
+		job, _ := jobsClient.Get(job.Name, metav1.GetOptions{})
+		if job.Status.Succeeded == 1 {
+			{
+				jobsClient.Delete(job.Name, &metav1.DeleteOptions{})
+				break
+			}
+		}
 	}
 }
