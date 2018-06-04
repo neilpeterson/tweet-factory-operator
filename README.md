@@ -1,8 +1,8 @@
-# Tweet Factory - A sample platform built on Kubernetes
+# Tweet Factory - A sample SaaS solution built on Kubernetes
 
-Tweet Factory is a sample / reference Kubernetes operator that demonstrates running [this Twitter sentiment analysis solution](https://github.com/neilpeterson/twitter-sentiment-for-kubernetes) as a service on top of Kubernetes.
+Tweet Factory is a sample SaaS solution built on Kubernetes. The software being delivered with Tweet Factory is [this Twitter sentiment analysis solution](https://github.com/neilpeterson/twitter-sentiment-for-kubernetes).
 
-Short five minute demo – this is also available on [youtube.com](https://youtu.be/os33mkp6pqw), which may be easier to view from the beginning, pause, etc.
+Short five-minute demo; refresh the page to start from the beginning. This video is also available on [youtube.com](https://youtu.be/os33mkp6pqw), which may be easier to view from the beginning, pause, etc. I've also written some about my experience creating this solution [here](docs/blog.md).
 
 ![](images/tweet-factory.gif)
 
@@ -20,7 +20,7 @@ In order to run Tweet Factory, you need:
 - Kubernete cluster with Helm configured
 - Service Catalog installed on the cluster
 - Open Service Broker for Azure (customized with [this fork](https://github.com/neilpeterson/open-service-broker-azure-samples/tree/master/osba-text-analytics))
-- Twitter API Consumer key and access token
+- Twitter API [Consumer key and access token](https://apps.twitter.com/)
 
 ## Installation
 
@@ -38,7 +38,7 @@ helm install azure-samples/tweet-factory-operator -n tweet-factory
 
 ## Run the solution
 
-At this point, a custom resource definition (CRD) has been created that represents the Tweet Factory solution. When a new instance of the custom resource is created, the Tweet Factor operator creates an instance of the service.
+At this point, a custom resource definition (CRD) has been created that represents the Tweet Factory resource. When a new instance of the custom resource is created, the Tweet Factor operator creates an instance of the service.
 
 To deploy a new instance, create a file named `tweet-seattle.yaml` and copy in the following YAML. Update the Twitter consumer key, access token, and both secrets with the values from your twitter API application.
 
@@ -61,7 +61,7 @@ Create the custom resource with `kubectl apply`.
 kubectl apply -f tweet-seattle.yaml
 ```
 
-Once the resource is created, the Tweet Sentiment operator runs a Helm chart the following items are created:
+Once the resource is created, the Tweet Sentiment operator runs a Helm chart and following items are created:
 
 - Azure Storage Queue - tweets to be processed are stored here
 - Azure Cosmos DB - sentiment results are stored here
