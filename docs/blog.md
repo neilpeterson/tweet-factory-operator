@@ -26,10 +26,11 @@ Helm to install and uninstall instances of the Twitter Sentiment SaaS. I like th
 **Lessons Learned:**
 
 - I'm not 100% on how to best run Helm releases.via Go code. In the interim, the solution uses a gross hack that involves starting a Kubernetes job, which runs Helm commands. I will update this routine as time allows.
+- I have tried a few methods for tracking / observing individual instances of the tweet-factory service. The current solution is to use randomly generated Helm release names, and add this name as a label to each object.
 
 ## Operator
 
-I've used the CoreOS / Redhat operator-framework for creating the tweet-factory operator. I found this simple.
+I've used the CoreOS / Redhat operator-framework for creating the tweet-factory operator.
 
 ## What's next
 
